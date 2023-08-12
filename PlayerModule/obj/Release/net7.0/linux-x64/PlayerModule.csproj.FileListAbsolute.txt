@@ -1,0 +1,12 @@
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\bin\Release\net7.0\linux-x64\PlayerModule.deps.json
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\bin\Release\net7.0\linux-x64\PlayerModule.dll
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\bin\Release\net7.0\linux-x64\PlayerModule.pdb
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\obj\Release\net7.0\linux-x64\PlayerModule.csproj.AssemblyReference.cache
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\obj\Release\net7.0\linux-x64\PlayerModule.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\obj\Release\net7.0\linux-x64\PlayerModule.AssemblyInfoInputs.cache
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\obj\Release\net7.0\linux-x64\PlayerModule.AssemblyInfo.cs
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\obj\Release\net7.0\linux-x64\PlayerModule.csproj.CoreCompileInputs.cache
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\obj\Release\net7.0\linux-x64\PlayerModule.dll
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\obj\Release\net7.0\linux-x64\refint\PlayerModule.dll
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\obj\Release\net7.0\linux-x64\PlayerModule.pdb
+C:\Workspace\UGS Modules Unity\PlayerModule\PlayerModule\obj\Release\net7.0\linux-x64\ref\PlayerModule.dll
