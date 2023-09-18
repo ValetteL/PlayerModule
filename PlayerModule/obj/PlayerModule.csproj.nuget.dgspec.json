@@ -44,6 +44,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Com.Unity.Services.CloudCode.Apis": {
+              "target": "Package",
+              "version": "[0.0.5, )"
+            },
             "Com.Unity.Services.CloudCode.Core": {
               "target": "Package",
               "version": "[0.0.1, )"
