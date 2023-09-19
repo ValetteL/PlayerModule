@@ -6,7 +6,7 @@ namespace PlayerModule;
 
 public interface IAuthenticationService
 {
-    IList<Authentication> GetAvailableAuthentications(IExecutionContext ctx);
+    //IList<Authentication> GetAvailableAuthentications(IExecutionContext ctx);
 }
 
 public class AuthenticationService : IAuthenticationService
@@ -21,9 +21,9 @@ public class AuthenticationService : IAuthenticationService
     private DateTime? CacheExpiryTime { get; set; }
 
     // Reminder: cache cannot be guaranteed to be consistent across all requests
-    private IList<Authentication>? AuthenticationCache { get; set; }
+    //private IList<Authentication>? AuthenticationCache { get; set; }
 
-    public IList<Authentication> GetAvailableAuthentications(IExecutionContext ctx)
+    /*public IList<Authentication> GetAvailableAuthentications(IExecutionContext ctx)
     {
         if (AuthenticationCache == null || DateTime.Now > CacheExpiryTime)
         {
@@ -33,9 +33,9 @@ public class AuthenticationService : IAuthenticationService
         }
 
         return AuthenticationCache;
-    }
+    }*/
     
-    private IList<Authentication> FetchAuthenticationsFromRC(IExecutionContext ctx)
+    /*private IList<Authentication> FetchAuthenticationsFromRC(IExecutionContext ctx)
     {
         var result = _apiClient.RemoteConfigSettings.AssignSettingsGetAsync(ctx, ctx.AccessToken, ctx.ProjectId,
             ctx.ProjectId, null, new List<string> { "QUESTS" });
@@ -43,5 +43,5 @@ public class AuthenticationService : IAuthenticationService
         var settings = result.Result.Data.Configs.Settings;
 
         return JsonSerializer.Deserialize<List<Authentication>>(settings["QUESTS"].ToString());
-    }
+    }*/
 }
