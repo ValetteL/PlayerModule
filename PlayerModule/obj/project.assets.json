@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net7.0": {
-      "Com.Unity.Services.CloudCode.Apis/0.0.5": {
+      "Com.Unity.Services.CloudCode.Apis/0.0.9": {
         "type": "package",
         "dependencies": {
           "Com.Unity.Services.CloudCode.Core": "0.0.1",
@@ -189,16 +189,16 @@
     }
   },
   "libraries": {
-    "Com.Unity.Services.CloudCode.Apis/0.0.5": {
-      "sha512": "iTMuNmrx8j1rqqop25S5E78mfd+8S8cYjY0HamzVBWlOqZSCANsdxhM0HoooWRbKk+V7brvCx+8E0h8lS+I1aQ==",
+    "Com.Unity.Services.CloudCode.Apis/0.0.9": {
+      "sha512": "U2DsEKU8lEgf3+oPQ/F3P8MNlVVD5TyVq8v8Khk86W5INQdXr3QHL0mblVIoDSFiHiBV6lID3EmgorUcwsJQ2w==",
       "type": "package",
-      "path": "com.unity.services.cloudcode.apis/0.0.5",
+      "path": "com.unity.services.cloudcode.apis/0.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.md",
         "README.md",
-        "com.unity.services.cloudcode.apis.0.0.5.nupkg.sha512",
+        "com.unity.services.cloudcode.apis.0.0.9.nupkg.sha512",
         "com.unity.services.cloudcode.apis.nuspec",
         "icon.png",
         "lib/netstandard2.1/Unity.Services.CloudCode.Apis.dll"
@@ -561,7 +561,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "Com.Unity.Services.CloudCode.Apis >= 0.0.5",
+      "Com.Unity.Services.CloudCode.Apis >= 0.0.9",
       "Com.Unity.Services.CloudCode.Core >= 0.0.1"
     ]
   },
@@ -611,7 +611,7 @@
         "dependencies": {
           "Com.Unity.Services.CloudCode.Apis": {
             "target": "Package",
-            "version": "[0.0.5, )"
+            "version": "[0.0.9, )"
           },
           "Com.Unity.Services.CloudCode.Core": {
             "target": "Package",

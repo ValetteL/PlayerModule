@@ -1,50 +1,88 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Unity.Services.CloudCode.Apis;
 using Unity.Services.CloudCode.Core;
+using Unity.Services.CloudCode.Shared;
 using Unity.Services.CloudSave.Model;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace PlayerModule;
 
 public class AuthenticationController
 {
-    [CloudCodeFunction("Connect")]
-    public async Task<string> Connect(IExecutionContext ctx, IAuthenticationService authenticationService, IGameApiClient apiClient)
+    private readonly ILogger<AuthenticationController> _logger;
+    
+    public AuthenticationController(ILogger<AuthenticationController> logger)
     {
-        var playerConf = await GetPlayerConf(ctx, apiClient);
-
-        if (playerConf?.Username != null)
-        {
-            //return "Player already has a quest in progress!";
-            return JsonConvert.SerializeObject(playerConf);
-        }
-        else
-        {
-            return "Player doesn't exist !";
-        }
-
-        /*var availableQuests = authenticationService.GetAvailableAuthentications(ctx);
-        var random = new Random();
-        var index = random.Next(availableQuests.Count);
-        var quest = availableQuests[index];
-
-        questData = new PlayerConf(quest.Name, quest.Reward, quest.ProgressRequired, quest.ProgressPerMinute,
-            DateTime.Now);
-
-        await SetQuestData(ctx, apiClient, "quest-data", JsonSerializer.Serialize(questData));
-
-        return $"Player was assigned quest: {quest.Name}!";*/
+        _logger = logger;
     }
     
-    private async Task<PlayerConf?> GetPlayerConf(IExecutionContext ctx, IGameApiClient apiClient)
+    [CloudCodeFunction("Connect")]
+    public async Task<string> Connect(IExecutionContext ctx, IGameApiClient apiClient)
     {
-        var result = await apiClient.CloudSaveData.GetItemsAsync(
-            ctx, ctx.AccessToken, ctx.ProjectId, ctx.PlayerId,
-            new List<string> { "playerConf" });
+        PlayerConf playerConf;
+        
+        try
+        {
+            ApiResponse<GetItemsResponse> result = await apiClient.CloudSaveData.GetItemsAsync(
+                ctx, ctx.AccessToken, ctx.ProjectId, ctx.PlayerId,
+                new List<string> { "playerConf" });
+            
+            if (result.Data.Results.Count == 0) 
+                return JsonConvert.SerializeObject(new InvalidOperationException("No account found for this player"));
+            
+            playerConf = JsonConvert.DeserializeObject<PlayerConf>(result.Data.Results.First().Value.ToString());
+        }
+        catch (Exception e)
+        {
+            return "Error while retrieving player account";
+        }
 
-        if (result.Data.Results.Count == 0) return null;
+        return JsonConvert.SerializeObject(playerConf);
+    }
+    
+    [CloudCodeFunction("Register")]
+    public async Task<string> Register(IExecutionContext ctx, IGameApiClient apiClient, string username)
+    {
+        PlayerConf playerConf = new PlayerConf();
+        
+        try
+        {
+            playerConf.Username = username;
+            playerConf.CreationDone = false;
+            playerConf.TutorialDone = false;
+            
+            var result = await apiClient.CloudSaveData
+                .SetItemAsync(ctx, ctx.AccessToken, ctx.ProjectId, ctx.PlayerId, new SetItemBody("playerConf", playerConf));
+            
+            result = await apiClient.CloudSaveData
+                .SetItemAsync(ctx, ctx.AccessToken, ctx.ProjectId, ctx.PlayerId, new SetItemBody("progression", new PlayerProgression()));
 
-        return JsonConvert.DeserializeObject<PlayerConf>(result.Data.Results.First().Value.ToString());
+            Gear gear = new Gear();
+            //_logger.LogInformation("gear equipments : " + string.Join("\n", gear.Equipments.Select(e => e.ToString())));
+            /*JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Include;*/
+            
+            result = await apiClient.CloudSaveData
+                .SetItemAsync(ctx, ctx.AccessToken, ctx.ProjectId, ctx.PlayerId, new SetItemBody("gear", gear));
+
+            List<Stat> characterStats = new List<Stat>()
+            {
+                new() { statType = StatType.Health, value = 100 },
+                new() { statType = StatType.Strength, value = 15 },
+                new() { statType = StatType.Luck, value = 1 },
+                new() { statType = StatType.Agility, value = 1 },
+                new() { statType = StatType.Armor, value = 0 },
+                new() { statType = StatType.Intelligence, value = 0 },
+            };
+            result = await apiClient.CloudSaveData
+                .SetItemAsync(ctx, ctx.AccessToken, ctx.ProjectId, ctx.PlayerId, new SetItemBody("characterStats", characterStats));
+        }
+        catch (Exception e)
+        {
+            return JsonConvert.SerializeObject(e);
+        }
+
+        return JsonConvert.SerializeObject(playerConf);
     }
     
     /*[CloudCodeFunction("AssignAuthentication")]

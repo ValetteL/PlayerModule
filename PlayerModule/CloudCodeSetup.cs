@@ -8,7 +8,7 @@ public class CloudCodeSetup : ICloudCodeSetup
 {
     public void Setup(ICloudCodeConfig config)
     {
-        config.Dependencies.AddSingleton<IAuthenticationService, AuthenticationService>();
+        //config.Dependencies.AddSingleton<IAuthenticationService, AuthenticationService>();
         config.Dependencies.AddSingleton<IGameApiClient>(s => GameApiClient.Create());
     }
 }

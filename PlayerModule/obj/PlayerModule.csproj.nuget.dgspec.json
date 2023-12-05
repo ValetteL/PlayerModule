@@ -46,7 +46,7 @@
           "dependencies": {
             "Com.Unity.Services.CloudCode.Apis": {
               "target": "Package",
-              "version": "[0.0.5, )"
+              "version": "[0.0.9, )"
             },
             "Com.Unity.Services.CloudCode.Core": {
               "target": "Package",
